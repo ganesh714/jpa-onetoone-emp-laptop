@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -42,9 +43,19 @@ public class LaptopController {
     public Laptop updateLaptop(@PathVariable String id, @RequestBody Laptop laptop) {
         return laptopService.updateLaptop(id, laptop);
     }
+    
+    @DeleteMapping("/laptop/{id}")
+    public String deleteLaptop(@PathVariable String id) {
+    	return laptopService.deleteLaptop(id);
+    }
 	
 	@PutMapping("/laptop/{lap_id}/employee/{emp_id}")
 	public Laptop assignLaptopToEmployee(@PathVariable String lap_id,@PathVariable String emp_id) {
 		return laptopService.assignLaptopToEmployee(lap_id, emp_id);
+	}
+	
+	@GetMapping("/laptop/employee/{emp_id}")
+	public Laptop getLpatopByEmpId(@PathVariable String emp_id) {
+		return laptopService.getLaptopByEmpId(emp_id);
 	}
 }
