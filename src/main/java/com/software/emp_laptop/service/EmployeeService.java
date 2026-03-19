@@ -28,7 +28,7 @@ public class EmployeeService {
 	}
 	
 	public Employee getEmployeeById(String id) {
-		return employeeRepository.getReferenceById(id);
+		return employeeRepository.findById(id).orElse(null);
 	}
 	
 	public Employee updateEmployee(String id, Employee employee) {
