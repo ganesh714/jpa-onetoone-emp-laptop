@@ -33,12 +33,20 @@ public class EmployeeService {
 	
 	public Employee updateEmployee(String id, Employee employee) {
 		if (isEmployeePresent(id)) {
-			Employee existing = getEmployeeById(id);
-			existing.setEmp_name(employee.getEmp_name());
-			existing.setEmp_salary(employee.getEmp_salary());
-			existing.setEmp_joing_date(employee.getEmp_joing_date());
-			return employeeRepository.save(existing);
-		}
+	        Employee existing = getEmployeeById(id);
+	        
+	        if (employee.getEmp_name() != null) {
+	            existing.setEmp_name(employee.getEmp_name());
+	        }
+	        if (employee.getEmp_salary() != 0) { 
+	            existing.setEmp_salary(employee.getEmp_salary());
+	        }
+	        if (employee.getEmp_joing_date() != null) {
+	            existing.setEmp_joing_date(employee.getEmp_joing_date());
+	        }
+	        
+	        return employeeRepository.save(existing);
+	    }
 		return null;
 	}
 	

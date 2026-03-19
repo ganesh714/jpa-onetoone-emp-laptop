@@ -35,12 +35,20 @@ public class LaptopService {
 	
 	public Laptop updateLaptop(String id, Laptop laptop) {
 		if (isLaptopPresent(id)) {
-			Laptop existing = getLaptopById(id);
-			existing.setLap_model(laptop.getLap_model());
-			existing.setLap_name(laptop.getLap_name());
-			existing.setLap_warranty(laptop.getLap_warranty());
-			return laptopRepository.save(existing);
-		}
+	        Laptop existing = getLaptopById(id);
+	        
+	        if (laptop.getLap_name() != null) {
+	            existing.setLap_name(laptop.getLap_name());
+	        }
+	        if (laptop.getLap_model() != null) {
+	            existing.setLap_model(laptop.getLap_model());
+	        }
+	        if (laptop.getLap_warranty() != null) {
+	            existing.setLap_warranty(laptop.getLap_warranty());
+	        }
+	        
+	        return laptopRepository.save(existing);
+	    }
 		
 		return null;
 	}
