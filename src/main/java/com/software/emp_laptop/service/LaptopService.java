@@ -1,5 +1,7 @@
 package com.software.emp_laptop.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,23 +14,46 @@ public class LaptopService {
 	
 	@Autowired
 	LaptopRepository laptopRepository;
+	@Autowired
+	EmployeeService employeeService;
 
 	public boolean addLaptop(Laptop laptop) {
-		if (isLaptopPresent(laptop)) {
+		if (isLaptopPresent(laptop.getLap_id())) {
 			return false;
 		}
 		laptopRepository.save(laptop);
 		return true;
 	}
 	
-	public Laptop updateLaptop_EmpId(String lap_id, Employee emp_id) {
-		Laptop laptop= laptopRepository.getReferenceById(lap_id);
-		laptop.setEmp_id(emp_id);
-		laptopRepository.save(laptop);
-		return laptop;
+	public List<Laptop> getAllLaptops(){
+		return laptopRepository.findAll();
 	}
 	
-	public boolean isLaptopPresent(Laptop laptop) {
-		return laptopRepository.findById(laptop.getLap_id()).isPresent();
+	public Laptop getLaptopById(String id) {
+		return laptopRepository.getReferenceById(id);
 	}
+	
+	public Laptop updateLaptop(String id, Laptop laptop) {
+		if (isLaptopPresent(id)) {
+			Laptop existing = getLaptopById(id);
+			existing.setLap_model(laptop.getLap_model());
+			existing.setLap_name(laptop.getLap_name());
+			existing.setLap_warranty(laptop.getLap_warranty());
+			return laptopRepository.save(existing);
+		}
+		
+		return null;
+	}
+	
+	public Laptop assignLaptopToEmployee(String lap_id, String emp_id) { //assignLaptopToEmployee
+		Laptop laptop= getLaptopById(lap_id);
+		laptop.setEmployee(employeeService.getEmployeeById(emp_id));
+		return laptopRepository.save(laptop);
+	}
+	
+	public boolean isLaptopPresent(String id) {
+		return laptopRepository.findById(id).isPresent();
+	}
+	
+	
 }
