@@ -1,7 +1,10 @@
 package com.software.emp_laptop.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -20,13 +23,28 @@ public class LaptopController {
 	@Autowired
 	LaptopService laptopService;
 	
-	@PostMapping("laptop")
+	@PostMapping("/laptop")
 	public boolean addLaptop(@RequestBody Laptop laptop) {
 		return laptopService.addLaptop(laptop);
 	}
 	
-	@PutMapping("/laptop/{lap_id}/employee")
-	public Laptop updateLaptop_EmpId(@PathVariable String lap_id,@RequestBody Employee emp_id) {
-		return laptopService.updateLaptop_EmpId(lap_id, emp_id);
+    @GetMapping("/laptops")
+    public List<Laptop> getAllLaptops() {
+        return laptopService.getAllLaptops();
+    }
+
+    @GetMapping("/laptop/{id}")
+    public Laptop getLaptopById(@PathVariable String id) {
+        return laptopService.getLaptopById(id);
+    }
+
+    @PutMapping("/laptop/{id}")
+    public Laptop updateLaptop(@PathVariable String id, @RequestBody Laptop laptop) {
+        return laptopService.updateLaptop(id, laptop);
+    }
+	
+	@PutMapping("/laptop/{lap_id}/employee/{emp_id}")
+	public Laptop assignLaptopToEmployee(@PathVariable String lap_id,@PathVariable String emp_id) {
+		return laptopService.assignLaptopToEmployee(lap_id, emp_id);
 	}
 }
