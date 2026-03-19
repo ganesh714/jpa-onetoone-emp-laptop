@@ -45,10 +45,22 @@ public class LaptopService {
 		return null;
 	}
 	
+	public String deleteLaptop(String id) {
+	    if (isLaptopPresent(id)) {
+	        laptopRepository.deleteById(id);
+	        return "Laptop deleted successfully!";
+	    }
+	    return "Laptop not found!";
+	}
+	
 	public Laptop assignLaptopToEmployee(String lap_id, String emp_id) { //assignLaptopToEmployee
 		Laptop laptop= getLaptopById(lap_id);
 		laptop.setEmployee(employeeService.getEmployeeById(emp_id));
 		return laptopRepository.save(laptop);
+	}
+	
+	public Laptop getLaptopByEmpId(String id) {
+		return laptopRepository.getLaptopByEmpId(id);
 	}
 	
 	public boolean isLaptopPresent(String id) {
