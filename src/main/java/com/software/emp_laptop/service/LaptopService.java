@@ -30,7 +30,7 @@ public class LaptopService {
 	}
 	
 	public Laptop getLaptopById(String id) {
-		return laptopRepository.getReferenceById(id);
+		return laptopRepository.findById(id).orElse(null);
 	}
 	
 	public Laptop updateLaptop(String id, Laptop laptop) {
