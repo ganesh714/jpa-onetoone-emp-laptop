@@ -13,17 +13,17 @@ public class Laptop {
 	private String lap_model;
 	private String lap_warranty;
 	@OneToOne
-	private Employee emp_id;
+	private Employee employee;
 	
 	public Laptop() {}
 	
-	public Laptop(String lap_id, String lap_name, String lap_model, String lap_warranty, Employee emp_id) {
+	public Laptop(String lap_id, String lap_name, String lap_model, String lap_warranty, Employee employee) {
 		super();
 		this.lap_id = lap_id;
 		this.lap_name = lap_name;
 		this.lap_model = lap_model;
 		this.lap_warranty = lap_warranty;
-		this.emp_id = emp_id;
+		this.employee = employee;
 	}
 
 	public String getLap_id() {
@@ -58,12 +58,12 @@ public class Laptop {
 		this.lap_warranty = lap_warranty;
 	}
 
-	public Employee getEmp_id() {
-		return emp_id;
+	public Employee getEmployee() {
+		return employee;
 	}
 
-	public void setEmp_id(Employee emp_id) {
-		this.emp_id = emp_id;
+	public void setEmployee(Employee employee) {
+		this.employee = employee;
 	}
 	
 	
